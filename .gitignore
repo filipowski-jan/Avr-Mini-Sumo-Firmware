@@ -1,0 +1,11 @@
+.vscode
+*.elf
+*.hex
+*.o
+*.map
+*.lst
+*.d
+build/
+*.kicad_prl
+pcb/.history
+pcb/mini_sumo-backups
