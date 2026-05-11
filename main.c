@@ -14,10 +14,11 @@ int main(void)
     motors_init();
     ir_sensor_init();
     line_sensor_init();
+    _delay_ms(300);
 
     while (1)
     {
-        // Checking if robot hasn't left the arena
+        // Retreat if robot left the arena
         if (line_sensor_read() > LINE_THRESHOLD)
         {
             motor_left_backward(MOTOR_SPEED);
@@ -25,15 +26,21 @@ int main(void)
             _delay_ms(50);
             motors_stop();
         }
-        // Checking if it detected enemy
+        // Charge if enemy detected
         else if (ir_sensor_read())
         {
             motor_left_forward(MOTOR_SPEED);
             motor_right_forward(MOTOR_SPEED);
         }
+        // Searching for enemy
         else
         {
+            // motors_stop();
+            motor_left_forward(MOTOR_SPEED);
+            motor_right_backward(MOTOR_SPEED);
+            _delay_ms(10);
             motors_stop();
+            _delay_ms(20);
         }
     }
 }
